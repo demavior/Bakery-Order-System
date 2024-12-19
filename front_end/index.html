@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panimick Bakery</title>
     <link rel="stylesheet" href="css/style.css">
+    <!--Get header and change color when mousover  -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const header = document.querySelector('header h1');
+    
+            header.addEventListener('mouseover', function () {
+                header.style.color = 'red';
+            });
+    
+            header.addEventListener('mouseout', function () {
+                header.style.color = '';  // Reset to the default color
+            });
+        });
+    </script>
 </head>
 <body>
 
@@ -18,24 +32,51 @@
         </nav>
     </header>
 
-<main>
-    <section>
-        <h2>We offer different types of products</h2>
-        <ul>
-            <li>Breads</li>
-            <img src="images/breads.jpg" alt="Breads" width="400" height="250">
-            <li>Pastries</li>
-            <img src="images/pastries.jpg" alt="Pastries" width="400" height="250">
-            <li>Coffee and Juices</li>
-            <img src="images/drinks.jpg" alt="Drinks" width="400" height="250">
-        </ul>
-        <p>Visit us or make an order online</p>
-    </section>
-</main>
+    <main>
+        <section>
 
-<footer>
-    <p>&copy; 2024 Panimick Bakery</p>
-</footer>
+            <h2>We offer different types of products</h2>
+            <ul>
+                <li>Breads</li>
+                <img src="images/breads.jpg" alt="Breads" width="400" height="250">
+                <li>Pastries</li>
+                <img src="images/pastries.jpg" alt="Pastries" width="400" height="250">
+                <li>Coffee and Juices</li>
+                <img src="images/drinks.jpg" alt="Drinks" width="400" height="250">
+            </ul>
+
+            <h2>Special Offer</h2>
+                <p>Check out our special offer today!</p>
+                
+                <!-- Button to trigger DOM manipulation -->
+                <button id="showOfferButton">Show Offer</button>
+                
+            <h3>Visit us or make an order online</h3>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Panimick Bakery</p>
+    </footer>
+    <!--Adding Offer list and Hidding Show Offer button-->
+    <script>
+        // DOM Manipulation event
+        document.addEventListener('DOMContentLoaded', function() {
+            const showOfferButton = document.getElementById('showOfferButton');
+
+            showOfferButton.addEventListener('click', function() {
+                // Hide the button
+                showOfferButton.style.display = ('none');
+                // Add the offer list
+                const offerList = document.createElement('ul');
+                    offerList.innerHTML = '<li>50% off on all pastries!</li><li>Free coffee with any bread purchase!</li>';
+                    document.querySelector('main section').appendChild(offerList);
+
+                    const mainSection = document.querySelector('main section');
+                    mainSection.insertBefore(offerList, mainSection.querySelector('h3'));
+            });
+        });
+    </script>
 
 </body>
 </html>

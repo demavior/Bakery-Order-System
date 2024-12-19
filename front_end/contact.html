@@ -6,9 +6,23 @@
     <title>Contact Panimick Bakery</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/contact.css">
+    <!--Get header and change color when mousover  -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const header = document.querySelector('header h1');
+    
+            header.addEventListener('mouseover', function () {
+                header.style.color = 'red';
+            });
+    
+            header.addEventListener('mouseout', function () {
+                header.style.color = '';  // Reset to the default color
+            });
+        });
+    </script>
 </head>
-<body>
 
+<body>
     <header>
         <h1>Panimick Bakery & Coffee Shop</h1>
         <nav>
@@ -32,6 +46,12 @@
                 <label for="message">Message:</label>
                 <textarea id="message" name="message" rows="4" required></textarea>
 
+                <label for="attachment">Attachment:</label>
+                <div id="dropArea" style="border: 2px dashed #ccc; padding: 10px;">
+                    <p>Drag & Drop files here or click to select</p>
+                    <input type="file" id="attachment" name="attachment" style="display: none;">
+                </div><br>
+
                 <button type="submit">Submit</button>
             </form>
         </section>
@@ -46,5 +66,79 @@
     <footer>
         <p>&copy; 2024 Panimick Bakery</p>
     </footer>
+
+    <!--Drag N' drop functionality to attach file on form -->
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // set constants
+            const dropArea = document.getElementById('dropArea');
+            const fileInput = document.getElementById('attachment');
+
+            // Evenet listeners and changes
+            dropArea.addEventListener('dragover', function (event) {
+                event.preventDefault();
+                dropArea.style.border = '2px dashed #333';
+            });
+
+            dropArea.addEventListener('dragleave', function () {
+                dropArea.style.border = '2px dashed #ccc';
+            });
+
+            dropArea.addEventListener('drop', function (event) {
+                event.preventDefault();
+                dropArea.style.border = '2px dashed #ccc';
+
+                const files = event.dataTransfer.files;
+                fileInput.files = files;
+
+                updateDropArea(files.length);
+            });
+
+            dropArea.addEventListener('click', function () {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener('change', function () {
+                const files = fileInput.files;
+                updateDropArea(files.length);
+            });
+            
+            // Show number of file selected
+            function updateDropArea(fileCount) {
+                if (fileCount > 0) {
+                    dropArea.innerHTML = `<p>${fileCount} file(s) selected</p>`;
+                } else {
+                    dropArea.innerHTML = `<p>Drag & Drop files here or click to select</p>`;
+                }
+            }
+        });
+    </script>
+    <!--Retrieve data from form and show dialog box, to be changed to send email -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('form');
+    
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+    
+                // Retrieve data from the form
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+    
+                // Store data in localStorage
+                localStorage.setItem('contactFormData', JSON.stringify({ name, email, message }));
+
+                // Show a dialog box with the stored information
+                alert(`Thank you for your message!\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`);
+
+                // Reset the form after submission
+                form.reset();
+            });
+        });
+    </script>
+    
 </body>
 </html>
