@@ -1,0 +1,26 @@
+form {
+  margin-top: 20px;
+}
+form label {
+  display: block;
+  margin-bottom: 5px;
+}
+form input[type=text],
+form input[type=email],
+form textarea {
+  width: 98%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+form button {
+  padding: 10px 20px;
+  background-color: #343a40;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=contact.css.map */
