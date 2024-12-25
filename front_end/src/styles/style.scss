@@ -90,6 +90,49 @@ Button {
     border-radius: 10px;
 }
 
+/****************ORDER TABLE ************************/
+
+.order-table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    min-width:400px;
+
+    th,
+    td{
+        padding: 8px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+        }
+}
+
+.order-details-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+        padding: 8px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+}
 
 /************ Navigation Buttons **************/
 .Navigation {
