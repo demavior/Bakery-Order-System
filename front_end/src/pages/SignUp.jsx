@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useCSRFToken } from '../utils/CSRFTokenContext';
+import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 function SignUp() {
-  
-  const navigate = useNavigate(); 
-  
+
+  const navigate = useNavigate();
+
   const [signupData, setSignupData] = useState({
-      username: '',
-      password: '',
-      first_name: '',
-      last_name: '',
-      email: ''
+    username: '',
+    password: '',
+    first_name: '',
+    last_name: '',
+    email: ''
   });
 
   const handleChange = (e) => {
@@ -19,8 +22,14 @@ function SignUp() {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    localStorage.setItem('user', JSON.stringify(signupData.username));
-    navigate('/user')
+
+    try {
+      const response = await axios.post('/backend/user/create_user/', signupData);
+      console.log('Sign Up successfully:', response.data);
+      navigate('/user')
+    } catch (error) {
+      console.error('Signup failed:', error);
+    }
   };
 
 
@@ -32,58 +41,58 @@ function SignUp() {
           <div>
             <label htmlFor="username">Username:</label>
             <input
-                type="text"
-                name="username"
-                value={signupData.username}
-                onChange={handleChange}
-                placeholder="Username"
-                required
+              type="text"
+              name="username"
+              value={signupData.username}
+              onChange={handleChange}
+              placeholder="Username"
+              required
             />
-            </div>
-            <div>
+          </div>
+          <div>
             <label htmlFor="password">Password:</label>
             <input
-                type="password"
-                name="password"
-                value={signupData.password}
-                onChange={handleChange}
-                placeholder="Password"
-                required
+              type="password"
+              name="password"
+              value={signupData.password}
+              onChange={handleChange}
+              placeholder="Password"
+              required
             />
           </div>
           <div>
             <label htmlFor="first_name">First Name:</label>
             <input
-                type="text"
-                name="first_name"
-                value={signupData.first_name}
-                onChange={handleChange}
-                placeholder="First Name"
-                required
+              type="text"
+              name="first_name"
+              value={signupData.first_name}
+              onChange={handleChange}
+              placeholder="First Name"
+              required
             />
-            </div>
+          </div>
           <div>
             <label htmlFor="last_name">Last Name:</label>
             <input
-                type="text"
-                name="last_name"
-                value={signupData.last_name}
-                onChange={handleChange}
-                placeholder="Last Name"
-                required
+              type="text"
+              name="last_name"
+              value={signupData.last_name}
+              onChange={handleChange}
+              placeholder="Last Name"
+              required
             />
-            </div>
+          </div>
           <div>
             <label htmlFor="email">Email:</label>
             <input
-                type="email"
-                name="email"
-                value={signupData.email}
-                onChange={handleChange}
-                placeholder="Email"
-                required
+              type="email"
+              name="email"
+              value={signupData.email}
+              onChange={handleChange}
+              placeholder="Email"
+              required
             />
-            </div>
+          </div>
           <button type="submit">Sign Up</button>
         </form>
       </main>
