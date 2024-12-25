@@ -86,4 +86,62 @@ Button {
   border-radius: 10px;
 }
 
+/****************ORDER TABLE ************************/
+.order-table {
+  width: 100%;
+  max-width: 800px;
+  border-collapse: collapse;
+  min-width: 400px;
+}
+.order-table th,
+.order-table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+.order-table th {
+  background-color: #f2f2f2;
+}
+.order-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.order-details-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.order-details-table th,
+.order-details-table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+.order-details-table th {
+  background-color: #f2f2f2;
+}
+.order-details-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/************ Navigation Buttons **************/
+.Navigation {
+  background-color: #555; /* Dark Gray */
+  border: none;
+  color: #fff; /* White */
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.Navigation :hover {
+  background-color: #333; /* Slightly lighter Gray */
+}
+.Navigation :active {
+  background-color: #222; /* Even darker Gray */
+}
+
 /*# sourceMappingURL=style.css.map */

@@ -17,6 +17,7 @@ form {
     }
     input[type="text"],
     input[type="email"],
+    input[type=password],
     textarea {
         width: 98%;
         padding: 10px;
@@ -49,6 +50,7 @@ form {
 }
 
 .confirmation-popup {
+    
     p {
     margin: 5px 0;
     }
