@@ -1,10 +1,12 @@
 // Home.jsx
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import drinksImg from '/drinks.jpg'
 import breadsImg from '/breads.jpg'
 import pastriesImg from '/pastries.jpg'
 
 function Home() {
+  const navigate = useNavigate(); 
   const [showOffer, setShowOffer] = useState(false);
 
   const handleShowOffer = () => {
@@ -24,7 +26,7 @@ function Home() {
           <img src={drinksImg} alt="Drinks" width="400" height="250" />
         </ul>
 
-        <h2>Special Offer</h2>
+        {/* <h2>Special Offer</h2>
         {showOffer ? (
           <ul>
             <li>50% off on all pastries!</li>
@@ -32,9 +34,9 @@ function Home() {
           </ul>
         ) : (
           <button onClick={handleShowOffer}>Show Offer</button>
-        )}
+        )} */}
 
-        <h3>Visit us or make an order online</h3>
+        <Link to="/signIn">Visit us or make an order online</Link>
       </section>
     </main>
   );

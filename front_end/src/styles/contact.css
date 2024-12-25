@@ -7,6 +7,7 @@ form label {
 }
 form input[type=text],
 form input[type=email],
+form input[type=password],
 form textarea {
   width: 98%;
   padding: 10px;
@@ -45,16 +46,13 @@ form button {
 .confirmation-popup p {
   margin: 5px 0;
 }
-
 .confirmation-popup button {
   background-color: #007bff;
   color: white;
   padding: 8px 16px;
 }
-
 .confirmation-popup button:hover {
   background-color: #0056b3;
 }
-
 
 /*# sourceMappingURL=contact.css.map */
