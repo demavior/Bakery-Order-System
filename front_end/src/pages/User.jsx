@@ -9,6 +9,7 @@ function User() {
   const navigate = useNavigate(); 
   const WelcomeMessage = () => {
     const { user } = useCheckLogin();
+    localStorage.setItem('user', user);
     return (
       <h2>
         Welcome, {user}! You can make an order and pick up at the store.
