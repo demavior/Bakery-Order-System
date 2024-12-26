@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; 
+import { useAuth } from '../utils/AuthContext';
 import axios from 'axios';
 import '../styles/MakeOrder.css';
 axios.defaults.withCredentials = true;
 
 function MakeOrder() {
+  
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [items, setItems] = useState([]);
@@ -13,15 +15,14 @@ function MakeOrder() {
   const [orderItems, setOrderItems] = useState([]);
   const [orderTotal, setOrderTotal] = useState(0);
 
-  const user = localStorage.getItem('user');
+  const { username, setUsername } = useAuth();
   const navigate = useNavigate(); 
-  console.log('user: '+user)
 
   useEffect(() => {
     // Fetch categories from the backend when the component mounts
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/order/getCategories/');
+        const response = await axios.get('/backend/order/getCategories/');
         setCategories(response.data.categories);
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -34,7 +35,7 @@ function MakeOrder() {
     // Fetch items based on the selected category when the selected category changes
     const fetchItems = async () => {
       try {
-        let url = 'http://localhost:8000/order/getItems/';
+        let url = '/backend/order/getItems/';
         if (selectedCategory) {
           url += selectedCategory;
         }
@@ -87,8 +88,8 @@ function MakeOrder() {
     }));
     console.log('Order details:', orderDetails);
     // Make the POST request to save the order
-    const response = await axios.post('http://localhost:8000/order/create/', {
-      username: user,
+    const response = await axios.post('/backend/order/create/', {
+      username: username,
       details: orderDetails});
     // Handle the response as needed
     console.log('Order created successfully:', response.data);
@@ -112,10 +113,9 @@ const handleLogout = async (e) => {
     const response = await axios.post('/backend/user/logout/');
     console.log('Logged out successfully:', response.data);
   } catch (error) {
-    // Handle login error (e.g., display error message)
     console.error('Log out failed:', error.response.data);
   }finally{
-    localStorage.setItem('user', "");
+    setUsername('');
     navigate('/signIn')
   }
 }
@@ -123,7 +123,6 @@ const handleLogout = async (e) => {
 
   return (
     <div>
-      {/* Navigation buttons */}
       <div className="navigation-buttons">
         <Link to="/user">
           <button className='Navigation'>User</button>
