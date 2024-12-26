@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCSRFToken } from '../utils/CSRFTokenContext';
+import { useAuth } from '../utils/AuthContext';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 function SignUp() {
 
+  const { setUsername } = useAuth();
   const navigate = useNavigate();
 
   const [signupData, setSignupData] = useState({
@@ -25,6 +26,7 @@ function SignUp() {
 
     try {
       const response = await axios.post('/backend/user/create_user/', signupData);
+      setUsername(signupData.username);
       console.log('Sign Up successfully:', response.data);
       navigate('/user')
     } catch (error) {

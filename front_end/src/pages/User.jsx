@@ -1,18 +1,19 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCheckLogin } from '../utils/useCheckLogin';
+import { useAuth } from '../utils/AuthContext';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 function User() {
 
+  const { username, setUsername } = useAuth();
   const navigate = useNavigate(); 
+
   const WelcomeMessage = () => {
-    const { user } = useCheckLogin();
-    localStorage.setItem('user', user);
+    localStorage.setItem('user', username);
     return (
       <h2>
-        Welcome, {user}! You can make an order and pick up at the store.
+        Welcome, {username}! You can make an order and pick up at the store.
       </h2>
     );
   };
@@ -22,9 +23,9 @@ function User() {
 
     try {
       const response = await axios.get('/backend/user/logout/');
+      setUsername('');
       console.log('Logged out successfully:', response.data);
     } catch (error) {
-      // Handle login error (e.g., display error message)
       console.error('Log out failed:', error.response.data);
     }finally{
       navigate('/signIn')
@@ -33,7 +34,6 @@ function User() {
   };
   return (
     <div>
-      {/* Buttons for navigating to different pages */}
       <div>
         <Link to="/user">
           <button className='Navigation'>User</button>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link,useNavigate } from 'react-router-dom'; 
-import { useCheckLogin } from '../utils/useCheckLogin';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../utils/AuthContext';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
@@ -9,9 +9,8 @@ function ViewOrder() {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [orderDetails, setOrderDetails] = useState(null);
 
-  const navigate = useNavigate(); 
-  //const { user } = useCheckLogin();
-  const user = localStorage.getItem('user');
+  const navigate = useNavigate();
+  const { username, setUsername } = useAuth();
 
   useEffect(() => {
     fetchOrders();
@@ -19,7 +18,7 @@ function ViewOrder() {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get(`/backend/order/getByUser/${user}`);
+      const response = await axios.get(`/backend/order/getByUser/${username}`);
       const { orders } = response.data;
       setOrders(orders);
       console.log(orders);
@@ -50,10 +49,9 @@ function ViewOrder() {
       const response = await axios.post('/backend/user/logout/');
       console.log('Logged out successfully:', response.data);
     } catch (error) {
-      // Handle login error (e.g., display error message)
       console.error('Log out failed:', error.response.data);
-    }finally{
-      localStorage.setItem('user', "");
+    } finally {
+      setUsername('');
       navigate('/signIn')
     }
   }

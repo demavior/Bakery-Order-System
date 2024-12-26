@@ -10,12 +10,12 @@ import User from './pages/User';
 import MakeOrder from './pages/MakeOrder';
 import ViewOrders from './pages/ViewOrders';
 import { CSRFTokenProvider } from './utils/CSRFTokenContext';
-import { useCheckLogin } from './utils/useCheckLogin';
+import { AuthProvider,useAuth } from './utils/AuthContext';
 import './styles/style.css';
 
 function App() {
 
-  const { isLoggedIn, isLoading } = useCheckLogin();
+  const { username, isLoading } = useAuth();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -32,9 +32,9 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/register" element={<SignUp />} />
-            <Route path="/viewOrders" element={<ViewOrders />} />
-            <Route path="/makeOrder" element={<MakeOrder />} />
-            <Route path="/user" element={isLoggedIn ? <User /> : <Navigate to="/signIn" />} />
+            <Route path="/viewOrders" element={username ? <ViewOrders /> : <Navigate to="/signIn" />} />
+            <Route path="/makeOrder" element={username ? <MakeOrder /> : <Navigate to="/signIn" />} />
+            <Route path="/user" element={username ? <User /> : <Navigate to="/signIn" />} />
           </Routes>
           <Footer />
         </BrowserRouter>
@@ -43,4 +43,10 @@ function App() {
   );
 }
 
-export default App
+export default function Root() {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  )
+}
