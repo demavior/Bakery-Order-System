@@ -1,16 +1,18 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useCheckLogin } from '../utils/useCheckLogin';
+import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 function User() {
 
   const navigate = useNavigate(); 
-  // Gets the user and greets
-  const storedUser = localStorage.getItem('user');
   const WelcomeMessage = () => {
-    const user = JSON.parse(storedUser);
+    const { user } = useCheckLogin();
+    localStorage.setItem('user', user);
     return (
       <h2>
-        Welcome, {JSON.parse(storedUser)}! You can make an order and pick up at the store.
+        Welcome, {user}! You can make an order and pick up at the store.
       </h2>
     );
   };
@@ -18,8 +20,15 @@ function User() {
   const handleLogout = async (e) => {
     e.preventDefault();
 
-    localStorage.setItem('user', "");
-    navigate('/signIn')
+    try {
+      const response = await axios.get('/backend/user/logout/');
+      console.log('Logged out successfully:', response.data);
+    } catch (error) {
+      // Handle login error (e.g., display error message)
+      console.error('Log out failed:', error.response.data);
+    }finally{
+      navigate('/signIn')
+    }
 
   };
   return (
