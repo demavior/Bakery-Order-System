@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/AuthContext';
+import UserNavigation from '../components/UserNavigation';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
@@ -21,7 +22,6 @@ function ViewOrder() {
       const response = await axios.get(`/backend/order/getByUser/${username}`);
       const { orders } = response.data;
       setOrders(orders);
-      console.log(orders);
     } catch (error) {
       console.error('Failed to fetch orders:', error);
     }
@@ -42,37 +42,9 @@ function ViewOrder() {
     fetchOrderDetails(orderNumber);
   };
 
-  const handleLogout = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post('/backend/user/logout/');
-      console.log('Logged out successfully:', response.data);
-    } catch (error) {
-      console.error('Log out failed:', error.response.data);
-    } finally {
-      setUsername('');
-      navigate('/signIn')
-    }
-  }
-
   return (
     <div>
-      {/* Buttons for navigating to different pages */}
-      <div>
-        <Link to="/user">
-          <button className='Navigation'>User</button>
-        </Link>
-        <Link to="/viewOrders">
-          <button className='Navigation'>View Order</button>
-        </Link>
-        <Link to="/makeOrder">
-          <button className='Navigation'>Make an Order</button>
-        </Link>
-        <Link to="/signIn">
-          <button className='Navigation' onClick={handleLogout}>Logout</button>
-        </Link>
-      </div>
+      <UserNavigation />
       <h2>My Orders</h2>
       <table className="order-table">
         <thead>

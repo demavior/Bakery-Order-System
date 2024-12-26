@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; 
 import { useAuth } from '../utils/AuthContext';
+import UserNavigation from '../components/UserNavigation';
 import axios from 'axios';
 import '../styles/MakeOrder.css';
 axios.defaults.withCredentials = true;
@@ -53,9 +54,7 @@ function MakeOrder() {
   };
 
   const handleItemClick = (itemId) => {
-    console.log(itemId)
     const selectedItem = items.find((item) => item.name === itemId);
-    console.log(selectedItem)
     setSelectedItem(selectedItem);
   };
 
@@ -86,7 +85,6 @@ function MakeOrder() {
       item_name: item.name,
       quantity: item.quantity
     }));
-    console.log('Order details:', orderDetails);
     // Make the POST request to save the order
     const response = await axios.post('/backend/order/create/', {
       username: username,
@@ -103,40 +101,11 @@ function MakeOrder() {
     console.error('Error creating order:', error);
   }
 
-  
 };
-
-const handleLogout = async (e) => {
-  e.preventDefault();
-
-  try {
-    const response = await axios.post('/backend/user/logout/');
-    console.log('Logged out successfully:', response.data);
-  } catch (error) {
-    console.error('Log out failed:', error.response.data);
-  }finally{
-    setUsername('');
-    navigate('/signIn')
-  }
-}
-
 
   return (
     <div>
-      <div className="navigation-buttons">
-        <Link to="/user">
-          <button className='Navigation'>User</button>
-        </Link>
-        <Link to="/viewOrders">
-          <button className='Navigation'>View Order</button>
-        </Link>
-        <Link to="/makeOrder">
-          <button className='Navigation'>Make an Order</button>
-        </Link>
-        <Link to="/signIn">
-          <button className='Navigation' onClick={handleLogout}>Logout</button>
-        </Link>
-      </div>
+      <UserNavigation />
       <div className="make-order-container">
         {/* Categories */}
         <div className="categories">

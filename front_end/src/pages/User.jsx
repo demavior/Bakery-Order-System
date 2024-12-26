@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/AuthContext';
+import UserNavigation from '../components/UserNavigation';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 function User() {
 
-  const { username, setUsername } = useAuth();
+  const { username } = useAuth();
   const navigate = useNavigate(); 
 
   const WelcomeMessage = () => {
@@ -18,36 +19,9 @@ function User() {
     );
   };
 
-  const handleLogout = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.get('/backend/user/logout/');
-      setUsername('');
-      console.log('Logged out successfully:', response.data);
-    } catch (error) {
-      console.error('Log out failed:', error.response.data);
-    }finally{
-      navigate('/signIn')
-    }
-
-  };
   return (
     <div>
-      <div>
-        <Link to="/user">
-          <button className='Navigation'>User</button>
-        </Link>
-        <Link to="/viewOrders">
-          <button className='Navigation'>View Order</button>
-        </Link>
-        <Link to="/makeOrder">
-          <button className='Navigation'>Make Order</button>
-        </Link>
-        <Link to="/signIn">
-          <button className='Navigation' onClick={handleLogout}>Logout</button>
-        </Link>
-      </div>
+      <UserNavigation />
       <main>
         <WelcomeMessage />
       </main>

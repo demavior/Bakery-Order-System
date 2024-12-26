@@ -12,7 +12,6 @@ export const CSRFTokenProvider = ({ children }) => {
     const fetchCsrfToken = async () => {
       try {
         const response = await axios.get('/backend/user/get_csrf_token/');
-        console.log('CSRF token fetched: ', response.data);
         setCsrfToken(response.data);
       } catch (error) {
         console.error('Failed to fetch CSRF token', error);

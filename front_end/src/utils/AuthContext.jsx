@@ -18,7 +18,6 @@ export const AuthProvider = ({ children }) => {
                 setIsLoggedIn(response.data.is_logged_in);
                 setUsername(response.data.username);
                 console.log('Login status:', response.data);
-                // console.log('User:', response.data.username);
             } catch (error) {
                 console.error('Error checking login status:', error);
             } finally {
