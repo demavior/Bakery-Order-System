@@ -22,7 +22,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name='index.html')),
-    path('admin/', admin.site.urls),
-    path('user/', include('user.urls')),
-    path('order/', include('order.urls'))
+    path('backend/admin/', admin.site.urls),
+    path('backend/user/', include('user.urls')),
+    path('backend/order/', include('order.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
