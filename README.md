@@ -1,7 +1,7 @@
 # Bakery Management System
 
 ## Overview
-This project is a web application for managing a bakery's orders and inventory. It includes a React frontend and a Django backend, providing a comprehensive solution for both user interactions and backend management.
+This project is a web application for managing a bakery's orders. It includes a React frontend and a Django backend, providing a comprehensive solution for both user interactions and backend management.
 
 ## Features
 
