@@ -27,7 +27,7 @@ This project is a web application for managing a bakery's orders. It includes a 
 - **Routing**: react-router-dom
 - **State Management**: React Context
 - **Styling**: CSS, Sass
-- **Database**: SQLite (or your preferred database)
+- **Database**: SQLite
 
 ## License
 This project is licensed under the MIT License.
